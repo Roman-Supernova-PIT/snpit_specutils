@@ -1,0 +1,31 @@
+[build-system]
+requires = [
+    "setuptools>=80",
+    "setuptools-scm[toml]>=8"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "snpit_specutils"
+version = "0.1.0"
+#dynamic = ["version"]
+description = "A collection of WFSS utilities for the SNPIT"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "BSD-3-Clause"
+
+dependencies = [
+    "asdf>=5.2.0",
+    "astropy>=7.2.0",
+    "matplotlib>=3.10.8",
+    "numba>=0.65.1",
+    "numpy>=2.4.0",
+    "roman_datamodels>=0.30.0",
+    "scikit-image>=0.24.0",
+]
+
+#[tool.setuptools_scm]
+#write_to = "snpit_specutils/version.py"
+
+[tool.setuptools.package-data]
+snpit_specutils = ["cal_files/**/*"]

@@ -1,0 +1,17 @@
+#
+# default settings for SN PIT prism background subtraction code (background.py)
+#
+# V1.0
+# R. Ryan
+# Jun 2026
+#
+
+meta:
+  version: 1.0.0
+  
+epsilon: 0.000001    # tolerance for changes in alpha
+maxiter: 10          # maximum number of iterations
+minskypix: 1000      # minimum number of valid sky pixels
+nsigma: [-3, 3]      # number of sigma for clipping [low, high]
+minsize: 10          # minimum number of contiguous pixels for valid
+dilation: [100, 10]  # footprint to grow the objects
