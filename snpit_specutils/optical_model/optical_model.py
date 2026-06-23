@@ -14,7 +14,7 @@ def validate_inputs(func):
     Jun 2026
     """
     
-    def validate(self, x, y, l, sca, order='1', pairwise=True):
+    def validate(self, x, y, l, sca, order='1', pairwise=False):
         x = np.atleast_1d(x)
         y = np.atleast_1d(y)
         l = np.atleast_1d(l)
