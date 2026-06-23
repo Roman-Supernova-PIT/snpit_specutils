@@ -75,7 +75,6 @@ class LogTransformer:
         dldw : ndarray
             Derivative of wavelength with respect to the transformed coordinate.
         """
-        print('HERE', lam.shape, self.ln10)
         return lam * self.ln10
 
 
