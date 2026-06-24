@@ -16,10 +16,10 @@ license = "BSD-3-Clause"
 
 dependencies = [
     "asdf>=5.2.0",
-    "astropy>=7.2.0",
-    "matplotlib>=3.10.8",
+    "astropy",
+    "matplotlib",
     "numba>=0.65.1",
-    "numpy>=2.4.0",
+    "numpy",
     "roman_datamodels>=0.30.0",
     "scikit-image>=0.24.0",
 ]
