@@ -5,7 +5,7 @@ import numpy as np
 
 from ..utils import get_package_file
 from .numba_utils import (disperse_pairwise, disperse, deriv_pairwise, deriv)
-from .transformers import (LinearTransformer, LogTransformer)
+from .transformers import get_transformer # (LinearTransformer, LogTransformer)
 
 def validate_inputs(func):
     """
@@ -25,13 +25,15 @@ def validate_inputs(func):
         if sca not in self.detector['xy_centers']:
             raise KeyError("Invalid SCA number")
 
-        if pairwise:
-            if (x.shape != y.shape) or (x.shape != l.shape):
-                raise RuntimeError("Invalid x, y, lam shape for pairwise")
-        else:
-            if (x.shape != y.shape) or (l.ndim != 1):
-                raise RuntimeError("Invalid x, y, lam shape")
+        if (x.shape != y.shape):
+            raise ValueError("Invalid shape for the x, y arrays.")
+
+        if (l.ndim != 1):
+            raise ValueError("Wavelength must be a 1d array.")
         
+        if pairwise & (x.shape != l.shape):
+            raise ValueError("(x,y) cannot be paired with wavelength.")
+                
         return func(self, x, y, l, sca, order=order, pairwise=pairwise)
     
     return validate
@@ -138,16 +140,11 @@ class OpticalModel:
                                                 'Dijk': Dijk,
                                                 'dDijk': dDijk}
 
-        # transform the wavelengths            
-        transform = self.optical['wl_transform'].lower()
-        if transform == 'log':
-            self.lam_transformer = LogTransformer(self.optical['wl_reference'])
-        elif transform == 'linear':
-            self.lam_transformer = LinearTransformer(self.optical['wl_reference'])
-        else:
-            raise NotImplementedError(f'Invalid transform {transform}')
-            
+        # transform the wavelengths
+        self.lam_transformer = get_transformer(self.optical['wl_transform'],
+            self.optical['wl_reference'])
 
+        
     @staticmethod
     def deriv_coeffs(M):
         """

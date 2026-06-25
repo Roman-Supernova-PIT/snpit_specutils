@@ -143,3 +143,16 @@ class LinearTransformer:
             Derivative of wavelength with respect to the transformed coordinate.
         """
         return np.ones_like(lam)
+
+def get_transformer(form, reflam):
+    
+    form = form.lower()
+    if form == 'log':
+        return LogTransformer(reflam)
+    elif form == 'linear':
+        return LinearTransformer(reflam)
+    else:
+        raise NotImplementedError(f'Invalid wavelength transform: {form}')
+
+    
+    
